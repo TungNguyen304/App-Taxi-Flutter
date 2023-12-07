@@ -12,7 +12,7 @@ class RidePicker extends StatefulWidget {
 
 class _RidePickerState extends State<RidePicker> {
   LocationBloc locationBloc = LocationBloc();
-  
+
   @override
   void initState() {
     // TODO: implement initState
@@ -23,7 +23,7 @@ class _RidePickerState extends State<RidePicker> {
   @override
   void dispose() {
     // TODO: implement dispose
-    locationBloc.dispose();
+    // locationBloc.dispose();
     super.dispose();
   }
 
@@ -42,11 +42,10 @@ class _RidePickerState extends State<RidePicker> {
                   color: Color.fromARGB(255, 230, 228, 228))
             ]),
         // padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-        child: StreamBuilder(
+        child: StreamBuilder<List<dynamic>>(
             stream: locationBloc.listLocationStream,
             builder: (context, snapshot) {
-              print("----------------");
-              print(snapshot.data);
+              print('list location ${snapshot.data?.length}');
               return Padding(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: Column(
@@ -56,7 +55,7 @@ class _RidePickerState extends State<RidePicker> {
                           redirectRidePickerPage('from');
                         },
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                           child: PlaceItem(
                             name: snapshot.data?[0]?["formatted_address"] ??
                                 "From",
@@ -69,7 +68,7 @@ class _RidePickerState extends State<RidePicker> {
                           redirectRidePickerPage('to');
                         },
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                           child: PlaceItem(
                               name: snapshot.data?[1]?["formatted_address"] ??
                                   "To",

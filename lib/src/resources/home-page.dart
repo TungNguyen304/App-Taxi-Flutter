@@ -61,9 +61,10 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         child: Stack(
           children: [
-            StreamBuilder(
-                stream: locationBloc.myLocationStream,
+            StreamBuilder<List<dynamic>>(
+                stream: locationBloc.listLocationStream,
                 builder: (context, snapshot) {
+                  print('listLocationStream ${snapshot.data?.length}');
                   return GoogleMap(
                     onMapCreated: _onMapCreated,
                     initialCameraPosition: CameraPosition(

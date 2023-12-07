@@ -31,8 +31,8 @@ class _RidePickerPageState extends State<RidePickerPage> {
   @override
   void dispose() {
     // TODO: implement dispose
-    locationBloc.dispose();
-    placeBloc.dispose();
+    // locationBloc.dispose();
+    // placeBloc.dispose();
     super.dispose();
   }
 
@@ -64,16 +64,16 @@ class _RidePickerPageState extends State<RidePickerPage> {
                     controller: searchController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orangeAccent, width: 1.0),
-                        borderRadius: BorderRadius.circular(15)
-                      ),
-                      isDense: true,                      // Added this
-                      contentPadding: EdgeInsets.all(8),
+                          borderSide: const BorderSide(
+                              color: Colors.orangeAccent, width: 1.0),
+                          borderRadius: BorderRadius.circular(15)),
+                      isDense: true, // Added this
+                      contentPadding: const EdgeInsets.all(8),
                       focusColor: Colors.orangeAccent,
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orangeAccent, width: 1.0),
-                        borderRadius: BorderRadius.circular(15)
-                      ),
+                          borderSide: const BorderSide(
+                              color: Colors.orangeAccent, width: 1.0),
+                          borderRadius: BorderRadius.circular(15)),
                       filled: true,
                       fillColor: Colors.white,
                       border: const OutlineInputBorder(
@@ -92,50 +92,57 @@ class _RidePickerPageState extends State<RidePickerPage> {
                     ),
                   ),
                 ),
-                if (isSearch) ... [
-                  StreamBuilder(
-                    stream: placeBloc.placeStream,
-                    builder: (context, snapshot) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
-                        child: Container(
-                          height: 200,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          padding: EdgeInsets.all(20),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                snapshot.data == true ? const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 3,
-                                  ),
-                                ) : Column(
-                                  children: List.generate(snapshot.data?.length, (index) {
-                                    return Material(
-                                      color: Colors.white.withOpacity(0.0),
-                                      child: InkWell(
-                                        // splashColor: Colors.orange,
-                                        onTap: () {
-                                          selectPlace(widget.type, snapshot.data[index]);
-                                        },
-                                        child: PlaceItem(name: snapshot.data[index]["formatted_address"])
-                                      ),
-                                    );
-                                  }),
-                                ),
-                              ],
+                if (isSearch) ...[
+                  StreamBuilder<dynamic>(
+                      stream: placeBloc.placeStream,
+                      builder: (context, snapshot) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 10),
+                          child: Container(
+                            height: 200,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            padding: EdgeInsets.all(20),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  snapshot.data == true
+                                      ? const SizedBox(
+                                          width: 20,
+                                          height: 20,
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 3,
+                                          ),
+                                        )
+                                      : Column(
+                                          children: List.generate(
+                                              snapshot.data?.length, (index) {
+                                            return Material(
+                                              color:
+                                                  Colors.white.withOpacity(0.0),
+                                              child: InkWell(
+                                                  // splashColor: Colors.orange,
+                                                  onTap: () {
+                                                    selectPlace(widget.type,
+                                                        snapshot.data[index]);
+                                                  },
+                                                  child: PlaceItem(
+                                                      name: snapshot.data[index]
+                                                          [
+                                                          "formatted_address"])),
+                                            );
+                                          }),
+                                        ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }
-                  )
+                        );
+                      })
                 ]
               ],
             )

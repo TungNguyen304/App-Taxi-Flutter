@@ -4,9 +4,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 class LocationBloc {
   StreamController myLocationController = StreamController();
-  StreamController listLocationController = StreamController();
+  StreamController<List<dynamic>> listLocationController = StreamController();
   Stream get myLocationStream => myLocationController.stream;
-  Stream get listLocationStream => listLocationController.stream;
+  Stream<List<dynamic>> get listLocationStream => listLocationController.stream;
 
   void getfieldlocation() async {
     Location location = new Location();
@@ -40,8 +40,6 @@ class LocationBloc {
       locations.add({});
       locations.add(location);
     }
-    print("=================");
-    print(locations);
     listLocationController.sink.add(locations);
   }
 
